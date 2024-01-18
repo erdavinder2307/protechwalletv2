@@ -72,16 +72,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => appStateNotifier.loggedIn
-          ? const NavBarPage()
-          : const AuthenticationWidget(),
+      errorBuilder: (context, state) =>
+          appStateNotifier.loggedIn ? const NavBarPage() : const AuthenticationWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? const NavBarPage()
-              : const AuthenticationWidget(),
+          builder: (context, _) =>
+              appStateNotifier.loggedIn ? const NavBarPage() : const AuthenticationWidget(),
         ),
         FFRoute(
           name: 'Authentication',
@@ -117,7 +115,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'AddExpenseCategory',
           path: '/addExpenseCategory',
-          builder: (context, params) => const AddExpenseWidget(),
+          builder: (context, params) => AddExpenseCategoryWidget(
+            expenseCategory: params.getParam('expenseCategory',
+                ParamType.DocumentReference, false, ['expense_category']),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -350,8 +351,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() =>
-      const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {
