@@ -192,11 +192,14 @@ class _ExpenseCategoryWidgetState extends State<ExpenseCategoryWidget> {
                                           'AddExpenseCategory',
                                           queryParameters: {
                                             'expenseCategory': serializeParam(
-                                              listViewExpenseCategoryRecord
-                                                  .reference,
-                                              ParamType.DocumentReference,
+                                              listViewExpenseCategoryRecord,
+                                              ParamType.Document,
                                             ),
                                           }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'expenseCategory':
+                                                listViewExpenseCategoryRecord,
+                                          },
                                         );
                                       },
                                       child: ListTile(

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -115,9 +116,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'AddExpenseCategory',
           path: '/addExpenseCategory',
+          asyncParams: {
+            'expenseCategory': getDoc(
+                ['expense_category'], ExpenseCategoryRecord.fromSnapshot),
+          },
           builder: (context, params) => AddExpenseCategoryWidget(
-            expenseCategory: params.getParam('expenseCategory',
-                ParamType.DocumentReference, false, ['expense_category']),
+            expenseCategory:
+                params.getParam('expenseCategory', ParamType.Document),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
