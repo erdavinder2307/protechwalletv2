@@ -8,3 +8,4 @@ export '/pages/expense_category/expense_category_widget.dart'
     show ExpenseCategoryWidget;
 export '/pages/add_expense_category/add_expense_category_widget.dart'
     show AddExpenseCategoryWidget;
+export '/pages/edit_expense/edit_expense_widget.dart' show EditExpenseWidget;

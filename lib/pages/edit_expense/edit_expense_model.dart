@@ -1,10 +1,10 @@
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'add_expense_widget.dart' show AddExpenseWidget;
+import 'edit_expense_widget.dart' show EditExpenseWidget;
 import 'package:flutter/material.dart';
 
-class AddExpenseModel extends FlutterFlowModel<AddExpenseWidget> {
+class EditExpenseModel extends FlutterFlowModel<EditExpenseWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

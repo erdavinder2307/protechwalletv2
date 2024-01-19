@@ -8,11 +8,11 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'add_expense_model.dart';
-export 'add_expense_model.dart';
+import 'edit_expense_model.dart';
+export 'edit_expense_model.dart';
 
-class AddExpenseWidget extends StatefulWidget {
-  const AddExpenseWidget({
+class EditExpenseWidget extends StatefulWidget {
+  const EditExpenseWidget({
     super.key,
     this.expense,
   });
@@ -20,18 +20,18 @@ class AddExpenseWidget extends StatefulWidget {
   final ExpensesRecord? expense;
 
   @override
-  _AddExpenseWidgetState createState() => _AddExpenseWidgetState();
+  _EditExpenseWidgetState createState() => _EditExpenseWidgetState();
 }
 
-class _AddExpenseWidgetState extends State<AddExpenseWidget> {
-  late AddExpenseModel _model;
+class _EditExpenseWidgetState extends State<EditExpenseWidget> {
+  late EditExpenseModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AddExpenseModel());
+    _model = createModel(context, () => EditExpenseModel());
 
     _model.amountController ??=
         TextEditingController(text: widget.expense?.amount.toString());
@@ -85,7 +85,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
             ),
           );
         }
-        List<ExpenseCategoryRecord> addExpenseExpenseCategoryRecordList =
+        List<ExpenseCategoryRecord> editExpenseExpenseCategoryRecordList =
             snapshot.data!;
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
@@ -129,7 +129,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                     ),
                   ),
                   title: Text(
-                    'Add Expense',
+                    'Update Expense',
                     style: FlutterFlowTheme.of(context).headlineMedium.override(
                           fontFamily: 'Outfit',
                           color: Colors.white,
@@ -163,10 +163,23 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                   child: FlutterFlowDropDown<String>(
                                     controller:
                                         _model.categoryValueController ??=
-                                            FormFieldController<String>(null),
-                                    options: addExpenseExpenseCategoryRecordList
-                                        .map((e) => e.categoryName)
-                                        .toList(),
+                                            FormFieldController<String>(
+                                      _model.categoryValue ??=
+                                          valueOrDefault<String>(
+                                        editExpenseExpenseCategoryRecordList
+                                            .where((e) =>
+                                                e.reference.id ==
+                                                widget.expense?.category?.id)
+                                            .toList()
+                                            .first
+                                            .categoryName,
+                                        'new',
+                                      ),
+                                    ),
+                                    options:
+                                        editExpenseExpenseCategoryRecordList
+                                            .map((e) => e.categoryName)
+                                            .toList(),
                                     onChanged: (val) async {
                                       setState(
                                           () => _model.categoryValue = val);

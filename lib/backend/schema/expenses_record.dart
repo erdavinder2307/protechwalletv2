@@ -41,15 +41,15 @@ class ExpensesRecord extends FirestoreRecord {
   DateTime? get createdAt => _createdAt;
   bool hasCreatedAt() => _createdAt != null;
 
-  // "category" field.
-  DocumentReference? _category;
-  DocumentReference? get category => _category;
-  bool hasCategory() => _category != null;
-
   // "user" field.
   DocumentReference? _user;
   DocumentReference? get user => _user;
   bool hasUser() => _user != null;
+
+  // "category" field.
+  DocumentReference? _category;
+  DocumentReference? get category => _category;
+  bool hasCategory() => _category != null;
 
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
@@ -57,8 +57,8 @@ class ExpensesRecord extends FirestoreRecord {
     _status = snapshotData['status'] as String?;
     _tax = castToType<double>(snapshotData['tax']);
     _createdAt = snapshotData['created_at'] as DateTime?;
-    _category = snapshotData['category'] as DocumentReference?;
     _user = snapshotData['user'] as DocumentReference?;
+    _category = snapshotData['category'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -101,8 +101,8 @@ Map<String, dynamic> createExpensesRecordData({
   String? status,
   double? tax,
   DateTime? createdAt,
-  DocumentReference? category,
   DocumentReference? user,
+  DocumentReference? category,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -111,8 +111,8 @@ Map<String, dynamic> createExpensesRecordData({
       'status': status,
       'tax': tax,
       'created_at': createdAt,
-      'category': category,
       'user': user,
+      'category': category,
     }.withoutNulls,
   );
 
@@ -129,8 +129,8 @@ class ExpensesRecordDocumentEquality implements Equality<ExpensesRecord> {
         e1?.status == e2?.status &&
         e1?.tax == e2?.tax &&
         e1?.createdAt == e2?.createdAt &&
-        e1?.category == e2?.category &&
-        e1?.user == e2?.user;
+        e1?.user == e2?.user &&
+        e1?.category == e2?.category;
   }
 
   @override
@@ -140,8 +140,8 @@ class ExpensesRecordDocumentEquality implements Equality<ExpensesRecord> {
         e?.status,
         e?.tax,
         e?.createdAt,
-        e?.category,
-        e?.user
+        e?.user,
+        e?.category
       ]);
 
   @override

@@ -104,7 +104,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'AddExpense',
           path: '/addExpense',
-          builder: (context, params) => const AddExpenseWidget(),
+          asyncParams: {
+            'expense': getDoc(['expenses'], ExpensesRecord.fromSnapshot),
+          },
+          builder: (context, params) => AddExpenseWidget(
+            expense: params.getParam('expense', ParamType.Document),
+          ),
         ),
         FFRoute(
           name: 'ExpenseCategory',
@@ -123,6 +128,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => AddExpenseCategoryWidget(
             expenseCategory:
                 params.getParam('expenseCategory', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'EditExpense',
+          path: '/editExpense',
+          asyncParams: {
+            'expense': getDoc(['expenses'], ExpensesRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditExpenseWidget(
+            expense: params.getParam('expense', ParamType.Document),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),

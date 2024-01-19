@@ -135,7 +135,7 @@ class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
                               autofocus: true,
                               obscureText: false,
                               decoration: InputDecoration(
-                                labelText: widget.expenseCategory?.categoryName,
+                                labelText: 'Category Name',
                                 labelStyle:
                                     FlutterFlowTheme.of(context).labelMedium,
                                 hintStyle:
@@ -240,10 +240,10 @@ class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
                                   await widget.expenseCategory!.reference
                                       .update(createExpenseCategoryRecordData(
                                     categoryName:
-                                        widget.expenseCategory?.categoryName,
-                                    categoryDescription: widget
-                                        .expenseCategory?.categoryDescription,
-                                    user: widget.expenseCategory?.user,
+                                        _model.categoryNameController.text,
+                                    categoryDescription:
+                                        _model.descriptionController.text,
+                                    user: currentUserReference,
                                   ));
                                 } else {
                                   await ExpenseCategoryRecord.collection
