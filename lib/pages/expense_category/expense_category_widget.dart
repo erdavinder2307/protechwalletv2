@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'expense_category_model.dart';
 export 'expense_category_model.dart';
@@ -78,7 +79,7 @@ class _ExpenseCategoryWidgetState extends State<ExpenseCategoryWidget> {
             SliverAppBar(
               pinned: false,
               floating: false,
-              backgroundColor: FlutterFlowTheme.of(context).tertiary,
+              backgroundColor: FFAppConstants.primaryColor,
               automaticallyImplyLeading: false,
               leading: Align(
                 alignment: const AlignmentDirectional(0.0, 0.0),
@@ -202,31 +203,61 @@ class _ExpenseCategoryWidgetState extends State<ExpenseCategoryWidget> {
                                           },
                                         );
                                       },
-                                      child: ListTile(
-                                        leading: const Icon(
-                                          Icons.category_outlined,
+                                      child: Slidable(
+                                        endActionPane: ActionPane(
+                                          motion: const ScrollMotion(),
+                                          extentRatio: 0.5,
+                                          children: [
+                                            SlidableAction(
+                                              label: 'Edit',
+                                              backgroundColor:
+                                                  FFAppConstants.warningColor,
+                                              icon: Icons.edit,
+                                              onPressed: (_) {
+                                                print(
+                                                    'SlidableActionWidget pressed ...');
+                                              },
+                                            ),
+                                            SlidableAction(
+                                              label: 'Delete',
+                                              backgroundColor:
+                                                  FFAppConstants.errorColor,
+                                              icon: Icons.delete,
+                                              onPressed: (_) async {
+                                                await listViewExpenseCategoryRecord
+                                                    .reference
+                                                    .delete();
+                                              },
+                                            ),
+                                          ],
                                         ),
-                                        title: Text(
-                                          listViewExpenseCategoryRecord
-                                              .categoryName,
-                                          style: FlutterFlowTheme.of(context)
-                                              .titleLarge,
+                                        child: ListTile(
+                                          leading: const Icon(
+                                            Icons.category_outlined,
+                                          ),
+                                          title: Text(
+                                            listViewExpenseCategoryRecord
+                                                .categoryName,
+                                            style: FlutterFlowTheme.of(context)
+                                                .titleLarge,
+                                          ),
+                                          subtitle: Text(
+                                            listViewExpenseCategoryRecord
+                                                .categoryDescription,
+                                            style: FlutterFlowTheme.of(context)
+                                                .labelMedium,
+                                          ),
+                                          trailing: Icon(
+                                            Icons.arrow_forward_ios,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 20.0,
+                                          ),
+                                          tileColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          dense: false,
                                         ),
-                                        subtitle: Text(
-                                          listViewExpenseCategoryRecord
-                                              .categoryDescription,
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelMedium,
-                                        ),
-                                        trailing: Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 20.0,
-                                        ),
-                                        tileColor: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        dense: false,
                                       ),
                                     ),
                                   ),

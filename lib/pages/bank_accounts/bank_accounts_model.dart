@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dashboard_widget.dart' show DashboardWidget;
+import 'bank_accounts_widget.dart' show BankAccountsWidget;
 import 'package:flutter/material.dart';
 
-class DashboardModel extends FlutterFlowModel<DashboardWidget> {
+class BankAccountsModel extends FlutterFlowModel<BankAccountsWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -5,25 +6,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'expenses_model.dart';
-export 'expenses_model.dart';
+import 'bank_accounts_model.dart';
+export 'bank_accounts_model.dart';
 
-class ExpensesWidget extends StatefulWidget {
-  const ExpensesWidget({super.key});
+class BankAccountsWidget extends StatefulWidget {
+  const BankAccountsWidget({super.key});
 
   @override
-  _ExpensesWidgetState createState() => _ExpensesWidgetState();
+  _BankAccountsWidgetState createState() => _BankAccountsWidgetState();
 }
 
-class _ExpensesWidgetState extends State<ExpensesWidget> {
-  late ExpensesModel _model;
+class _BankAccountsWidgetState extends State<BankAccountsWidget> {
+  late BankAccountsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ExpensesModel());
+    _model = createModel(context, () => BankAccountsModel());
   }
 
   @override
@@ -52,8 +53,8 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            print('FloatingActionButton pressed ...');
+          onPressed: () async {
+            context.pushNamed('AddBankAccount');
           },
           backgroundColor: FlutterFlowTheme.of(context).primary,
           elevation: 8.0,
@@ -63,7 +64,7 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () async {
-              context.pushNamed('AddExpense');
+              context.pushNamed('AddBankAccount');
             },
             child: Icon(
               Icons.add,
@@ -89,7 +90,7 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
                 ),
               ),
               title: Text(
-                'Expenses',
+                'Bank Accounts',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Outfit',
                       color: Colors.white,
@@ -129,8 +130,14 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      StreamBuilder<List<ExpensesRecord>>(
-                        stream: queryExpensesRecord(),
+                      StreamBuilder<List<BankAccountsRecord>>(
+                        stream: queryBankAccountsRecord(
+                          queryBuilder: (bankAccountsRecord) =>
+                              bankAccountsRecord.where(
+                            'user',
+                            isEqualTo: currentUserReference,
+                          ),
+                        ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -146,16 +153,16 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
                               ),
                             );
                           }
-                          List<ExpensesRecord> listViewExpensesRecordList =
-                              snapshot.data!;
+                          List<BankAccountsRecord>
+                              listViewBankAccountsRecordList = snapshot.data!;
                           return ListView.builder(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
-                            itemCount: listViewExpensesRecordList.length,
+                            itemCount: listViewBankAccountsRecordList.length,
                             itemBuilder: (context, listViewIndex) {
-                              final listViewExpensesRecord =
-                                  listViewExpensesRecordList[listViewIndex];
+                              final listViewBankAccountsRecord =
+                                  listViewBankAccountsRecordList[listViewIndex];
                               return Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 color: FlutterFlowTheme.of(context)
@@ -164,41 +171,23 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 10.0, 10.0, 10.0),
-                                  child: Container(
-                                    width: 100.0,
-                                    height: 100.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
+                                child: Container(
+                                  width: 100.0,
+                                  height: 100.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 10.0, 0.0, 0.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context.pushNamed(
-                                          'EditExpense',
-                                          queryParameters: {
-                                            'expense': serializeParam(
-                                              listViewExpensesRecord,
-                                              ParamType.Document,
-                                            ),
-                                          }.withoutNulls,
-                                          extra: <String, dynamic>{
-                                            'expense': listViewExpensesRecord,
-                                            kTransitionInfoKey: const TransitionInfo(
-                                              hasTransition: true,
-                                              transitionType: PageTransitionType
-                                                  .rightToLeft,
-                                              duration:
-                                                  Duration(milliseconds: 200),
-                                            ),
-                                          },
-                                        );
+                                        context.pushNamed('AddBankAccount');
                                       },
                                       child: Slidable(
                                         endActionPane: ActionPane(
@@ -229,16 +218,16 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
                                         ),
                                         child: ListTile(
                                           leading: const Icon(
-                                            Icons.exposure,
+                                            Icons.category_outlined,
                                           ),
                                           title: Text(
-                                            listViewExpensesRecord.name,
+                                            listViewBankAccountsRecord.bankName,
                                             style: FlutterFlowTheme.of(context)
                                                 .titleLarge,
                                           ),
                                           subtitle: Text(
-                                            listViewExpensesRecord.amount
-                                                .toString(),
+                                            listViewBankAccountsRecord
+                                                .description,
                                             style: FlutterFlowTheme.of(context)
                                                 .labelMedium,
                                           ),

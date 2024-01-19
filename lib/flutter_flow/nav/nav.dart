@@ -139,6 +139,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => EditExpenseWidget(
             expense: params.getParam('expense', ParamType.Document),
           ),
+        ),
+        FFRoute(
+          name: 'AddBankAccount',
+          path: '/addBankAccount',
+          asyncParams: {
+            'bankAccount':
+                getDoc(['bank_accounts'], BankAccountsRecord.fromSnapshot),
+          },
+          builder: (context, params) => AddBankAccountWidget(
+            bankAccount: params.getParam('bankAccount', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'BankAccounts',
+          path: '/bankAccounts',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'BankAccounts')
+              : const BankAccountsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

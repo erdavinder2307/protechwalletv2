@@ -100,7 +100,7 @@ class _EditExpenseWidgetState extends State<EditExpenseWidget> {
                 SliverAppBar(
                   pinned: false,
                   floating: false,
-                  backgroundColor: FlutterFlowTheme.of(context).tertiary,
+                  backgroundColor: FFAppConstants.primaryColor,
                   automaticallyImplyLeading: false,
                   leading: Align(
                     alignment: const AlignmentDirectional(0.0, 0.0),

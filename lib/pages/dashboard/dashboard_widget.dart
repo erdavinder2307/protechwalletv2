@@ -3,9 +3,8 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -117,19 +116,6 @@ class _DashboardWidgetState extends State<DashboardWidget>
     super.initState();
     _model = createModel(context, () => DashboardModel());
 
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.expenses = await queryExpensesRecordOnce(
-        queryBuilder: (expensesRecord) => expensesRecord.where(
-          'user',
-          isEqualTo: currentUserReference,
-        ),
-      );
-      await actions.getTotalExpenses(
-        _model.expenses?.toList(),
-      );
-    });
-
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -157,7 +143,12 @@ class _DashboardWidgetState extends State<DashboardWidget>
     }
 
     return StreamBuilder<List<ExpensesRecord>>(
-      stream: queryExpensesRecord(),
+      stream: queryExpensesRecord(
+        queryBuilder: (expensesRecord) => expensesRecord.where(
+          'user',
+          isEqualTo: currentUserReference,
+        ),
+      ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -190,7 +181,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                 SliverAppBar(
                   pinned: false,
                   floating: false,
-                  backgroundColor: FlutterFlowTheme.of(context).tertiary,
+                  backgroundColor: FFAppConstants.primaryColor,
                   automaticallyImplyLeading: false,
                   leading: Align(
                     alignment: const AlignmentDirectional(0.0, 0.0),
@@ -557,7 +548,11 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                     .fromSTEB(
                                                         0.0, 4.0, 4.0, 0.0),
                                                 child: Text(
-                                                  '1000',
+                                                  functions
+                                                      .getTotalExpense(
+                                                          dashboardExpensesRecordList
+                                                              .toList())
+                                                      .toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .displaySmall

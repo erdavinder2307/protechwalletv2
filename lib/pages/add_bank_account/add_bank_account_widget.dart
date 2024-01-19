@@ -5,38 +5,37 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'add_expense_category_model.dart';
-export 'add_expense_category_model.dart';
+import 'add_bank_account_model.dart';
+export 'add_bank_account_model.dart';
 
-class AddExpenseCategoryWidget extends StatefulWidget {
-  const AddExpenseCategoryWidget({
+class AddBankAccountWidget extends StatefulWidget {
+  const AddBankAccountWidget({
     super.key,
-    this.expenseCategory,
+    this.bankAccount,
   });
 
-  final ExpenseCategoryRecord? expenseCategory;
+  final BankAccountsRecord? bankAccount;
 
   @override
-  _AddExpenseCategoryWidgetState createState() =>
-      _AddExpenseCategoryWidgetState();
+  _AddBankAccountWidgetState createState() => _AddBankAccountWidgetState();
 }
 
-class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
-  late AddExpenseCategoryModel _model;
+class _AddBankAccountWidgetState extends State<AddBankAccountWidget> {
+  late AddBankAccountModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AddExpenseCategoryModel());
+    _model = createModel(context, () => AddBankAccountModel());
 
-    _model.categoryNameController ??=
-        TextEditingController(text: widget.expenseCategory?.categoryName);
-    _model.categoryNameFocusNode ??= FocusNode();
+    _model.bankNameController ??=
+        TextEditingController(text: widget.bankAccount?.bankName);
+    _model.bankNameFocusNode ??= FocusNode();
 
-    _model.descriptionController ??= TextEditingController(
-        text: widget.expenseCategory?.categoryDescription);
+    _model.descriptionController ??=
+        TextEditingController(text: widget.bankAccount?.description);
     _model.descriptionFocusNode ??= FocusNode();
   }
 
@@ -100,7 +99,7 @@ class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
                 ),
               ),
               title: Text(
-                'Add Expense Category',
+                'Add Bank Account',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Outfit',
                       color: Colors.white,
@@ -130,12 +129,12 @@ class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 10.0, 10.0, 10.0),
                             child: TextFormField(
-                              controller: _model.categoryNameController,
-                              focusNode: _model.categoryNameFocusNode,
+                              controller: _model.bankNameController,
+                              focusNode: _model.bankNameFocusNode,
                               autofocus: true,
                               obscureText: false,
                               decoration: InputDecoration(
-                                labelText: 'Category Name',
+                                labelText: 'Bank Name',
                                 labelStyle:
                                     FlutterFlowTheme.of(context).labelMedium,
                                 hintStyle:
@@ -171,7 +170,7 @@ class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
                                 ),
                               ),
                               style: FlutterFlowTheme.of(context).bodyMedium,
-                              validator: _model.categoryNameControllerValidator
+                              validator: _model.bankNameControllerValidator
                                   .asValidator(context),
                             ),
                           ),
@@ -236,29 +235,42 @@ class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
                             alignment: const AlignmentDirectional(0.0, 1.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                if ((widget.expenseCategory != null) == true) {
-                                  await widget.expenseCategory!.reference
-                                      .update(createExpenseCategoryRecordData(
-                                    categoryName:
-                                        _model.categoryNameController.text,
-                                    categoryDescription:
-                                        _model.descriptionController.text,
-                                    user: currentUserReference,
-                                  ));
+                                if ((widget.bankAccount != null) == true) {
+                                  await widget.bankAccount!.reference.update({
+                                    ...createBankAccountsRecordData(
+                                      user: currentUserReference,
+                                      bankName: _model.bankNameController.text,
+                                      description:
+                                          _model.descriptionController.text,
+                                    ),
+                                    ...mapToFirestore(
+                                      {
+                                        'created_at':
+                                            FieldValue.serverTimestamp(),
+                                      },
+                                    ),
+                                  });
                                 } else {
-                                  await ExpenseCategoryRecord.collection
+                                  await BankAccountsRecord.collection
                                       .doc()
-                                      .set(createExpenseCategoryRecordData(
-                                        categoryName:
-                                            _model.categoryNameController.text,
-                                        categoryDescription:
-                                            _model.descriptionController.text,
-                                        user: currentUserReference,
-                                      ));
+                                      .set({
+                                    ...createBankAccountsRecordData(
+                                      user: currentUserReference,
+                                      bankName: _model.bankNameController.text,
+                                      description:
+                                          _model.descriptionController.text,
+                                    ),
+                                    ...mapToFirestore(
+                                      {
+                                        'created_at':
+                                            FieldValue.serverTimestamp(),
+                                      },
+                                    ),
+                                  });
                                 }
 
                                 context.pushNamed(
-                                  'ExpenseCategory',
+                                  'BankAccounts',
                                   extra: <String, dynamic>{
                                     kTransitionInfoKey: const TransitionInfo(
                                       hasTransition: true,
@@ -269,7 +281,7 @@ class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
                                   },
                                 );
                               },
-                              text: 'Save Category',
+                              text: 'Save Bank',
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 40.0,
