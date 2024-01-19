@@ -95,20 +95,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : const DashboardWidget(),
         ),
         FFRoute(
-          name: 'Expenses',
-          path: '/expenses',
+          name: 'Transactions',
+          path: '/transactions',
           builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'Expenses')
-              : const ExpensesWidget(),
+              ? const NavBarPage(initialPage: 'Transactions')
+              : const TransactionsWidget(),
         ),
         FFRoute(
-          name: 'AddExpense',
-          path: '/addExpense',
+          name: 'AddTransaction',
+          path: '/addTransaction',
           asyncParams: {
-            'expense': getDoc(['expenses'], ExpensesRecord.fromSnapshot),
+            'transacation':
+                getDoc(['transactions'], TransactionsRecord.fromSnapshot),
           },
-          builder: (context, params) => AddExpenseWidget(
-            expense: params.getParam('expense', ParamType.Document),
+          builder: (context, params) => AddTransactionWidget(
+            transacation: params.getParam('transacation', ParamType.Document),
           ),
         ),
         FFRoute(
@@ -131,13 +132,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'EditExpense',
-          path: '/editExpense',
+          name: 'EditTransaction',
+          path: '/editTransaction',
           asyncParams: {
-            'expense': getDoc(['expenses'], ExpensesRecord.fromSnapshot),
+            'transaction':
+                getDoc(['transactions'], TransactionsRecord.fromSnapshot),
           },
-          builder: (context, params) => EditExpenseWidget(
-            expense: params.getParam('expense', ParamType.Document),
+          builder: (context, params) => EditTransactionWidget(
+            transaction: params.getParam('transaction', ParamType.Document),
           ),
         ),
         FFRoute(

@@ -128,7 +128,7 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'Dashboard': const DashboardWidget(),
-      'Expenses': const ExpensesWidget(),
+      'Transactions': const TransactionsWidget(),
       'ExpenseCategory': const ExpenseCategoryWidget(),
       'BankAccounts': const BankAccountsWidget(),
     };

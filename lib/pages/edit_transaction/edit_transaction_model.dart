@@ -1,13 +1,21 @@
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'edit_expense_widget.dart' show EditExpenseWidget;
+import 'edit_transaction_widget.dart' show EditTransactionWidget;
 import 'package:flutter/material.dart';
 
-class EditExpenseModel extends FlutterFlowModel<EditExpenseWidget> {
+class EditTransactionModel extends FlutterFlowModel<EditTransactionWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // State field(s) for Bank widget.
+  String? bankValue;
+  FormFieldController<String>? bankValueController;
+  // Stores action output result for [Firestore Query - Query a collection] action in Bank widget.
+  BankAccountsRecord? bankAccount;
+  // State field(s) for TransactionType widget.
+  String? transactionTypeValue;
+  FormFieldController<String>? transactionTypeValueController;
   // State field(s) for Category widget.
   String? categoryValue;
   FormFieldController<String>? categoryValueController;

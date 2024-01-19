@@ -5,25 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'expenses_model.dart';
-export 'expenses_model.dart';
+import 'transactions_model.dart';
+export 'transactions_model.dart';
 
-class ExpensesWidget extends StatefulWidget {
-  const ExpensesWidget({super.key});
+class TransactionsWidget extends StatefulWidget {
+  const TransactionsWidget({super.key});
 
   @override
-  _ExpensesWidgetState createState() => _ExpensesWidgetState();
+  _TransactionsWidgetState createState() => _TransactionsWidgetState();
 }
 
-class _ExpensesWidgetState extends State<ExpensesWidget> {
-  late ExpensesModel _model;
+class _TransactionsWidgetState extends State<TransactionsWidget> {
+  late TransactionsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ExpensesModel());
+    _model = createModel(context, () => TransactionsModel());
   }
 
   @override
@@ -63,7 +63,7 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () async {
-              context.pushNamed('AddExpense');
+              context.pushNamed('AddTransaction');
             },
             child: Icon(
               Icons.add,
@@ -89,7 +89,7 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
                 ),
               ),
               title: Text(
-                'Expenses',
+                'Transactions',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Outfit',
                       color: Colors.white,
@@ -129,8 +129,8 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      StreamBuilder<List<ExpensesRecord>>(
-                        stream: queryExpensesRecord(),
+                      StreamBuilder<List<TransactionsRecord>>(
+                        stream: queryTransactionsRecord(),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -146,16 +146,16 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
                               ),
                             );
                           }
-                          List<ExpensesRecord> listViewExpensesRecordList =
-                              snapshot.data!;
+                          List<TransactionsRecord>
+                              listViewTransactionsRecordList = snapshot.data!;
                           return ListView.builder(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
-                            itemCount: listViewExpensesRecordList.length,
+                            itemCount: listViewTransactionsRecordList.length,
                             itemBuilder: (context, listViewIndex) {
-                              final listViewExpensesRecord =
-                                  listViewExpensesRecordList[listViewIndex];
+                              final listViewTransactionsRecord =
+                                  listViewTransactionsRecordList[listViewIndex];
                               return Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 color: FlutterFlowTheme.of(context)
@@ -181,15 +181,16 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         context.pushNamed(
-                                          'EditExpense',
+                                          'EditTransaction',
                                           queryParameters: {
-                                            'expense': serializeParam(
-                                              listViewExpensesRecord,
+                                            'transaction': serializeParam(
+                                              listViewTransactionsRecord,
                                               ParamType.Document,
                                             ),
                                           }.withoutNulls,
                                           extra: <String, dynamic>{
-                                            'expense': listViewExpensesRecord,
+                                            'transaction':
+                                                listViewTransactionsRecord,
                                             kTransitionInfoKey: const TransitionInfo(
                                               hasTransition: true,
                                               transitionType: PageTransitionType
@@ -232,12 +233,12 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
                                             Icons.exposure,
                                           ),
                                           title: Text(
-                                            listViewExpensesRecord.name,
+                                            listViewTransactionsRecord.name,
                                             style: FlutterFlowTheme.of(context)
                                                 .titleLarge,
                                           ),
                                           subtitle: Text(
-                                            listViewExpensesRecord.amount
+                                            listViewTransactionsRecord.amount
                                                 .toString(),
                                             style: FlutterFlowTheme.of(context)
                                                 .labelMedium,
