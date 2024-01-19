@@ -5,11 +5,11 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'add_expense_category_model.dart';
-export 'add_expense_category_model.dart';
+import 'add_income_category_model.dart';
+export 'add_income_category_model.dart';
 
-class AddExpenseCategoryWidget extends StatefulWidget {
-  const AddExpenseCategoryWidget({
+class AddIncomeCategoryWidget extends StatefulWidget {
+  const AddIncomeCategoryWidget({
     super.key,
     this.expenseCategory,
   });
@@ -17,19 +17,19 @@ class AddExpenseCategoryWidget extends StatefulWidget {
   final ExpenseCategoryRecord? expenseCategory;
 
   @override
-  _AddExpenseCategoryWidgetState createState() =>
-      _AddExpenseCategoryWidgetState();
+  _AddIncomeCategoryWidgetState createState() =>
+      _AddIncomeCategoryWidgetState();
 }
 
-class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
-  late AddExpenseCategoryModel _model;
+class _AddIncomeCategoryWidgetState extends State<AddIncomeCategoryWidget> {
+  late AddIncomeCategoryModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AddExpenseCategoryModel());
+    _model = createModel(context, () => AddIncomeCategoryModel());
 
     _model.categoryNameController ??=
         TextEditingController(text: widget.expenseCategory?.categoryName);
@@ -100,7 +100,7 @@ class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
                 ),
               ),
               title: Text(
-                'Add Expense Category',
+                'Add Income Category',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Outfit',
                       color: Colors.white,
@@ -244,7 +244,7 @@ class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
                                     categoryDescription:
                                         _model.descriptionController.text,
                                     user: currentUserReference,
-                                    type: 'Debit',
+                                    type: 'Credit',
                                   ));
                                 } else {
                                   await ExpenseCategoryRecord.collection
@@ -255,12 +255,12 @@ class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
                                         categoryDescription:
                                             _model.descriptionController.text,
                                         user: currentUserReference,
-                                        type: 'Debit',
+                                        type: 'Credit',
                                       ));
                                 }
 
                                 context.pushNamed(
-                                  'ExpenseCategory',
+                                  'IncomeCategory',
                                   extra: <String, dynamic>{
                                     kTransitionInfoKey: const TransitionInfo(
                                       hasTransition: true,

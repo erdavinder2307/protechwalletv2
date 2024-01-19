@@ -176,30 +176,20 @@ class _DashboardWidgetState extends State<DashboardWidget>
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-            drawer: Drawer(
-              elevation: 16.0,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Card(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    color: FFAppConstants.tertiaryColor,
-                    elevation: 7.0,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(0.0),
-                        bottomRight: Radius.circular(8.0),
-                        topLeft: Radius.circular(0.0),
-                        topRight: Radius.circular(0.0),
-                      ),
-                    ),
-                    child: Padding(
+            drawer: SizedBox(
+              width: 200.0,
+              child: Drawer(
+                elevation: 16.0,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(
                           10.0, 10.0, 10.0, 10.0),
-                      child: Row(
+                      child: Column(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
                             width: 120.0,
@@ -222,8 +212,150 @@ class _DashboardWidgetState extends State<DashboardWidget>
                         ],
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('Dashboard');
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  5.0, 0.0, 5.0, 0.0),
+                              child: FaIcon(
+                                FontAwesomeIcons.home,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                size: 24.0,
+                              ),
+                            ),
+                            Align(
+                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              child: Text(
+                                'Home',
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('IncomeCategory');
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  5.0, 0.0, 5.0, 0.0),
+                              child: Icon(
+                                Icons.monetization_on,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                size: 24.0,
+                              ),
+                            ),
+                            Align(
+                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              child: Text(
+                                'Income Category',
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('ExpenseCategory');
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  5.0, 0.0, 5.0, 0.0),
+                              child: Icon(
+                                Icons.shopping_bag,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                size: 24.0,
+                              ),
+                            ),
+                            Text(
+                              'Expense Category',
+                              style: FlutterFlowTheme.of(context).bodyMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('BankAccounts');
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  5.0, 0.0, 5.0, 0.0),
+                              child: FaIcon(
+                                FontAwesomeIcons.donate,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                size: 24.0,
+                              ),
+                            ),
+                            Align(
+                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              child: Text(
+                                'Bank Account',
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             body: NestedScrollView(
@@ -236,10 +368,19 @@ class _DashboardWidgetState extends State<DashboardWidget>
                   automaticallyImplyLeading: false,
                   leading: Align(
                     alignment: const AlignmentDirectional(0.0, 0.0),
-                    child: FaIcon(
-                      FontAwesomeIcons.wallet,
-                      color: FlutterFlowTheme.of(context).alternate,
-                      size: 24.0,
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        scaffoldKey.currentState!.openDrawer();
+                      },
+                      child: FaIcon(
+                        FontAwesomeIcons.wallet,
+                        color: FlutterFlowTheme.of(context).alternate,
+                        size: 24.0,
+                      ),
                     ),
                   ),
                   title: Text(

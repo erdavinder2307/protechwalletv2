@@ -115,9 +115,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ExpenseCategory',
           path: '/expenseCategory',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'ExpenseCategory')
-              : const ExpenseCategoryWidget(),
+          builder: (context, params) => const ExpenseCategoryWidget(),
         ),
         FFRoute(
           name: 'AddExpenseCategory',
@@ -156,9 +154,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'BankAccounts',
           path: '/bankAccounts',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'BankAccounts')
-              : const BankAccountsWidget(),
+          builder: (context, params) => const BankAccountsWidget(),
+        ),
+        FFRoute(
+          name: 'IncomeCategory',
+          path: '/incomeCategory',
+          builder: (context, params) => const IncomeCategoryWidget(),
+        ),
+        FFRoute(
+          name: 'AddIncomeCategory',
+          path: '/addIncomeCategory',
+          asyncParams: {
+            'expenseCategory': getDoc(
+                ['expense_category'], ExpenseCategoryRecord.fromSnapshot),
+          },
+          builder: (context, params) => AddIncomeCategoryWidget(
+            expenseCategory:
+                params.getParam('expenseCategory', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -73,6 +73,180 @@ class _ExpenseCategoryWidgetState extends State<ExpenseCategoryWidget> {
             ),
           ),
         ),
+        drawer: SizedBox(
+          width: 200.0,
+          child: Drawer(
+            elevation: 16.0,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        width: 120.0,
+                        height: 120.0,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: Image.network(
+                          'https://picsum.photos/seed/398/600',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      AuthUserStreamWidget(
+                        builder: (context) => Text(
+                          currentUserDisplayName,
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed('Dashboard');
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              5.0, 0.0, 5.0, 0.0),
+                          child: FaIcon(
+                            FontAwesomeIcons.home,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 24.0,
+                          ),
+                        ),
+                        Align(
+                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          child: Text(
+                            'Home',
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed('IncomeCategory');
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              5.0, 0.0, 5.0, 0.0),
+                          child: Icon(
+                            Icons.monetization_on,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 24.0,
+                          ),
+                        ),
+                        Align(
+                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          child: Text(
+                            'Income Category',
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed('ExpenseCategory');
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              5.0, 0.0, 5.0, 0.0),
+                          child: Icon(
+                            Icons.shopping_bag,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 24.0,
+                          ),
+                        ),
+                        Text(
+                          'Expense Category',
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed('BankAccounts');
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              5.0, 0.0, 5.0, 0.0),
+                          child: FaIcon(
+                            FontAwesomeIcons.donate,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 24.0,
+                          ),
+                        ),
+                        Align(
+                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          child: Text(
+                            'Bank Account',
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
         body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, _) => [
@@ -83,10 +257,19 @@ class _ExpenseCategoryWidgetState extends State<ExpenseCategoryWidget> {
               automaticallyImplyLeading: false,
               leading: Align(
                 alignment: const AlignmentDirectional(0.0, 0.0),
-                child: FaIcon(
-                  FontAwesomeIcons.wallet,
-                  color: FlutterFlowTheme.of(context).alternate,
-                  size: 24.0,
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    scaffoldKey.currentState!.openDrawer();
+                  },
+                  child: FaIcon(
+                    FontAwesomeIcons.wallet,
+                    color: FlutterFlowTheme.of(context).alternate,
+                    size: 24.0,
+                  ),
                 ),
               ),
               title: Text(
@@ -119,156 +302,145 @@ class _ExpenseCategoryWidgetState extends State<ExpenseCategoryWidget> {
             builder: (context) {
               return SafeArea(
                 top: false,
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    context.pushNamed('AddExpenseCategory');
-                  },
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      StreamBuilder<List<ExpenseCategoryRecord>>(
-                        stream: queryExpenseCategoryRecord(
-                          queryBuilder: (expenseCategoryRecord) =>
-                              expenseCategoryRecord.where(
-                            'user',
-                            isEqualTo: currentUserReference,
-                          ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    StreamBuilder<List<ExpenseCategoryRecord>>(
+                      stream: queryExpenseCategoryRecord(
+                        queryBuilder: (expenseCategoryRecord) =>
+                            expenseCategoryRecord.where(
+                          'user',
+                          isEqualTo: currentUserReference,
                         ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
-                                  ),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
                                 ),
                               ),
-                            );
-                          }
-                          List<ExpenseCategoryRecord>
-                              listViewExpenseCategoryRecordList =
-                              snapshot.data!;
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: listViewExpenseCategoryRecordList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewExpenseCategoryRecord =
-                                  listViewExpenseCategoryRecordList[
-                                      listViewIndex];
-                              return Card(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                elevation: 4.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          );
+                        }
+                        List<ExpenseCategoryRecord>
+                            listViewExpenseCategoryRecordList = snapshot.data!;
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: listViewExpenseCategoryRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewExpenseCategoryRecord =
+                                listViewExpenseCategoryRecordList[
+                                    listViewIndex];
+                            return Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              elevation: 4.0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Container(
+                                width: 100.0,
+                                height: 100.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                 ),
-                                child: Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 10.0, 0.0, 0.0),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        context.pushNamed(
-                                          'AddExpenseCategory',
-                                          queryParameters: {
-                                            'expenseCategory': serializeParam(
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 10.0, 0.0, 0.0),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      context.pushNamed(
+                                        'AddExpenseCategory',
+                                        queryParameters: {
+                                          'expenseCategory': serializeParam(
+                                            listViewExpenseCategoryRecord,
+                                            ParamType.Document,
+                                          ),
+                                        }.withoutNulls,
+                                        extra: <String, dynamic>{
+                                          'expenseCategory':
                                               listViewExpenseCategoryRecord,
-                                              ParamType.Document,
-                                            ),
-                                          }.withoutNulls,
-                                          extra: <String, dynamic>{
-                                            'expenseCategory':
-                                                listViewExpenseCategoryRecord,
-                                          },
-                                        );
-                                      },
-                                      child: Slidable(
-                                        endActionPane: ActionPane(
-                                          motion: const ScrollMotion(),
-                                          extentRatio: 0.5,
-                                          children: [
-                                            SlidableAction(
-                                              label: 'Edit',
-                                              backgroundColor:
-                                                  FFAppConstants.warningColor,
-                                              icon: Icons.edit,
-                                              onPressed: (_) {
-                                                print(
-                                                    'SlidableActionWidget pressed ...');
-                                              },
-                                            ),
-                                            SlidableAction(
-                                              label: 'Delete',
-                                              backgroundColor:
-                                                  FFAppConstants.errorColor,
-                                              icon: Icons.delete,
-                                              onPressed: (_) async {
-                                                await listViewExpenseCategoryRecord
-                                                    .reference
-                                                    .delete();
-                                              },
-                                            ),
-                                          ],
+                                        },
+                                      );
+                                    },
+                                    child: Slidable(
+                                      endActionPane: ActionPane(
+                                        motion: const ScrollMotion(),
+                                        extentRatio: 0.5,
+                                        children: [
+                                          SlidableAction(
+                                            label: 'Edit',
+                                            backgroundColor:
+                                                FFAppConstants.warningColor,
+                                            icon: Icons.edit,
+                                            onPressed: (_) {
+                                              print(
+                                                  'SlidableActionWidget pressed ...');
+                                            },
+                                          ),
+                                          SlidableAction(
+                                            label: 'Delete',
+                                            backgroundColor:
+                                                FFAppConstants.errorColor,
+                                            icon: Icons.delete,
+                                            onPressed: (_) async {
+                                              await listViewExpenseCategoryRecord
+                                                  .reference
+                                                  .delete();
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                      child: ListTile(
+                                        leading: const Icon(
+                                          Icons.category_outlined,
                                         ),
-                                        child: ListTile(
-                                          leading: const Icon(
-                                            Icons.category_outlined,
-                                          ),
-                                          title: Text(
-                                            listViewExpenseCategoryRecord
-                                                .categoryName,
-                                            style: FlutterFlowTheme.of(context)
-                                                .titleLarge,
-                                          ),
-                                          subtitle: Text(
-                                            listViewExpenseCategoryRecord
-                                                .categoryDescription,
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelMedium,
-                                          ),
-                                          trailing: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 20.0,
-                                          ),
-                                          tileColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondaryBackground,
-                                          dense: false,
+                                        title: Text(
+                                          listViewExpenseCategoryRecord
+                                              .categoryName,
+                                          style: FlutterFlowTheme.of(context)
+                                              .titleLarge,
                                         ),
+                                        subtitle: Text(
+                                          listViewExpenseCategoryRecord
+                                              .categoryDescription,
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium,
+                                        ),
+                                        trailing: Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 20.0,
+                                        ),
+                                        tileColor: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        dense: false,
                                       ),
                                     ),
                                   ),
                                 ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ],
                 ),
               );
             },

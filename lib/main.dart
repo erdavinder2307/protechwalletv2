@@ -9,7 +9,6 @@ import 'backend/firebase/firebase_config.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 
@@ -129,8 +128,6 @@ class _NavBarPageState extends State<NavBarPage> {
     final tabs = {
       'Dashboard': const DashboardWidget(),
       'Transactions': const TransactionsWidget(),
-      'ExpenseCategory': const ExpenseCategoryWidget(),
-      'BankAccounts': const BankAccountsWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -160,22 +157,6 @@ class _NavBarPageState extends State<NavBarPage> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.monetization_on_outlined,
-              size: 24.0,
-            ),
-            label: 'Expenses',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.category,
-              size: 24.0,
-            ),
-            label: 'Expenses',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.piggyBank,
               size: 24.0,
             ),
             label: 'Expenses',
