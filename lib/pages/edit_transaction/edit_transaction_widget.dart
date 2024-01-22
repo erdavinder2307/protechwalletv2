@@ -152,12 +152,9 @@ class _EditTransactionWidgetState extends State<EditTransactionWidget> {
                                   10.0, 10.0, 10.0, 10.0),
                               child: FlutterFlowDropDown<String>(
                                 controller: _model.bankValueController ??=
-                                    FormFieldController<String>(
-                                  _model.bankValue ??=
-                                      widget.transaction?.bankAccount?.id,
-                                ),
+                                    FormFieldController<String>(null),
                                 options: _model.bankAccounts!
-                                    .map((e) => e.reference.id)
+                                    .map((e) => e.bankName)
                                     .toList(),
                                 onChanged: (val) async {
                                   setState(() => _model.bankValue = val);
@@ -210,10 +207,7 @@ class _EditTransactionWidgetState extends State<EditTransactionWidget> {
                             child: FlutterFlowDropDown<String>(
                               controller:
                                   _model.transactionTypeValueController ??=
-                                      FormFieldController<String>(
-                                _model.transactionTypeValue ??=
-                                    widget.transaction?.type,
-                              ),
+                                      FormFieldController<String>(null),
                               options: const ['Credit', 'Debit'],
                               onChanged: (val) => setState(
                                   () => _model.transactionTypeValue = val),
@@ -256,12 +250,9 @@ class _EditTransactionWidgetState extends State<EditTransactionWidget> {
                                     10.0, 10.0, 10.0, 10.0),
                                 child: FlutterFlowDropDown<String>(
                                   controller: _model.categoryValueController ??=
-                                      FormFieldController<String>(
-                                    _model.categoryValue ??=
-                                        widget.transaction?.category?.id,
-                                  ),
+                                      FormFieldController<String>(null),
                                   options: _model.expenseCategories!
-                                      .map((e) => e.reference.id)
+                                      .map((e) => e.categoryName)
                                       .toList(),
                                   onChanged: (val) async {
                                     setState(() => _model.categoryValue = val);
