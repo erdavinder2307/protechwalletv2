@@ -9,9 +9,9 @@ class AddTransactionModel extends FlutterFlowModel<AddTransactionWidget> {
 
   final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in AddTransaction widget.
-  List<BankAccountsRecord>? bankAccounts2;
+  List<BankAccountsRecord>? bankAccounts4;
   // Stores action output result for [Firestore Query - Query a collection] action in AddTransaction widget.
-  List<ExpenseCategoryRecord>? expenseCategory2;
+  List<ExpenseCategoryRecord>? expenseCategory4;
   // State field(s) for Bank widget.
   String? bankValue;
   FormFieldController<String>? bankValueController;

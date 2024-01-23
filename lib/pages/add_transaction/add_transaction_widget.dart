@@ -36,8 +36,18 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.bankAccounts2 = await queryBankAccountsRecordOnce();
-      _model.expenseCategory2 = await queryExpenseCategoryRecordOnce();
+      _model.bankAccounts4 = await queryBankAccountsRecordOnce(
+        queryBuilder: (bankAccountsRecord) => bankAccountsRecord.where(
+          'user',
+          isEqualTo: currentUserReference,
+        ),
+      );
+      _model.expenseCategory4 = await queryExpenseCategoryRecordOnce(
+        queryBuilder: (expenseCategoryRecord) => expenseCategoryRecord.where(
+          'user',
+          isEqualTo: currentUserReference,
+        ),
+      );
     });
 
     _model.amountController ??=
@@ -148,9 +158,12 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                   child: FlutterFlowDropDown<String>(
                                     controller: _model.bankValueController ??=
                                         FormFieldController<String>(null),
-                                    options: _model.bankAccounts2!
-                                        .map((e) => e.bankName)
-                                        .toList(),
+                                    options: _model.bankAccounts4 != null &&
+                                            (_model.bankAccounts4)!.isNotEmpty
+                                        ? _model.bankAccounts4!
+                                            .map((e) => e.bankName)
+                                            .toList()
+                                        : [],
                                     onChanged: (val) async {
                                       setState(() => _model.bankValue = val);
                                       _model.bankAccounts =
@@ -249,9 +262,13 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                     controller:
                                         _model.categoryValueController ??=
                                             FormFieldController<String>(null),
-                                    options: _model.expenseCategory2!
-                                        .map((e) => e.categoryName)
-                                        .toList(),
+                                    options: _model.expenseCategory4 != null &&
+                                            (_model.expenseCategory4)!
+                                                .isNotEmpty
+                                        ? _model.expenseCategory4!
+                                            .map((e) => e.categoryName)
+                                            .toList()
+                                        : [],
                                     onChanged: (val) async {
                                       setState(
                                           () => _model.categoryValue = val);

@@ -152,10 +152,21 @@ class _EditTransactionWidgetState extends State<EditTransactionWidget> {
                                   10.0, 10.0, 10.0, 10.0),
                               child: FlutterFlowDropDown<String>(
                                 controller: _model.bankValueController ??=
-                                    FormFieldController<String>(null),
-                                options: _model.bankAccounts!
-                                    .map((e) => e.bankName)
-                                    .toList(),
+                                    FormFieldController<String>(
+                                  _model.bankValue ??= _model.bankAccounts
+                                      ?.where((e) =>
+                                          e.reference.id ==
+                                          widget.transaction?.bankAccount?.id)
+                                      .toList()
+                                      .first
+                                      .bankName,
+                                ),
+                                options: _model.bankAccounts != null &&
+                                        (_model.bankAccounts)!.isNotEmpty
+                                    ? _model.bankAccounts!
+                                        .map((e) => e.bankName)
+                                        .toList()
+                                    : [],
                                 onChanged: (val) async {
                                   setState(() => _model.bankValue = val);
                                   _model.bankAccount =
@@ -207,7 +218,10 @@ class _EditTransactionWidgetState extends State<EditTransactionWidget> {
                             child: FlutterFlowDropDown<String>(
                               controller:
                                   _model.transactionTypeValueController ??=
-                                      FormFieldController<String>(null),
+                                      FormFieldController<String>(
+                                _model.transactionTypeValue ??=
+                                    widget.transaction?.type,
+                              ),
                               options: const ['Credit', 'Debit'],
                               onChanged: (val) => setState(
                                   () => _model.transactionTypeValue = val),
@@ -251,9 +265,12 @@ class _EditTransactionWidgetState extends State<EditTransactionWidget> {
                                 child: FlutterFlowDropDown<String>(
                                   controller: _model.categoryValueController ??=
                                       FormFieldController<String>(null),
-                                  options: _model.expenseCategories!
-                                      .map((e) => e.categoryName)
-                                      .toList(),
+                                  options: _model.expenseCategories != null &&
+                                          (_model.expenseCategories)!.isNotEmpty
+                                      ? _model.expenseCategories!
+                                          .map((e) => e.categoryName)
+                                          .toList()
+                                      : [],
                                   onChanged: (val) async {
                                     setState(() => _model.categoryValue = val);
                                     _model.expenseCategory =
