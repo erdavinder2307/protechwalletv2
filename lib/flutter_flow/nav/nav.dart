@@ -123,10 +123,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           asyncParams: {
             'expenseCategory': getDoc(
                 ['expense_category'], ExpenseCategoryRecord.fromSnapshot),
+            'transactionCategory': getDoc(['transaction_category'],
+                TransactionCategoryRecord.fromSnapshot),
           },
           builder: (context, params) => AddExpenseCategoryWidget(
             expenseCategory:
                 params.getParam('expenseCategory', ParamType.Document),
+            transactionCategory:
+                params.getParam('transactionCategory', ParamType.Document),
           ),
         ),
         FFRoute(

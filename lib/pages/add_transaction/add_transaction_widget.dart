@@ -42,8 +42,9 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
           isEqualTo: currentUserReference,
         ),
       );
-      _model.expenseCategory4 = await queryExpenseCategoryRecordOnce(
-        queryBuilder: (expenseCategoryRecord) => expenseCategoryRecord.where(
+      _model.transactionCategory = await queryTransactionCategoryRecordOnce(
+        queryBuilder: (transactionCategoryRecord) =>
+            transactionCategoryRecord.where(
           'user',
           isEqualTo: currentUserReference,
         ),
@@ -262,10 +263,12 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                     controller:
                                         _model.categoryValueController ??=
                                             FormFieldController<String>(null),
-                                    options: _model.expenseCategory4 != null &&
-                                            (_model.expenseCategory4)!
-                                                .isNotEmpty
-                                        ? _model.expenseCategory4!
+                                    options: (_model.transactionCategory !=
+                                                    null &&
+                                                (_model.transactionCategory)!
+                                                    .isNotEmpty) ==
+                                            true
+                                        ? _model.transactionCategory!
                                             .map((e) => e.categoryName)
                                             .toList()
                                         : [],
@@ -273,9 +276,10 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                       setState(
                                           () => _model.categoryValue = val);
                                       _model.expenseCategory =
-                                          await queryExpenseCategoryRecordOnce(
-                                        queryBuilder: (expenseCategoryRecord) =>
-                                            expenseCategoryRecord.where(
+                                          await queryTransactionCategoryRecordOnce(
+                                        queryBuilder:
+                                            (transactionCategoryRecord) =>
+                                                transactionCategoryRecord.where(
                                           'category_name',
                                           isEqualTo: _model.categoryValue,
                                         ),

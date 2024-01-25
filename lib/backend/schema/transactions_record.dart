@@ -36,11 +36,6 @@ class TransactionsRecord extends FirestoreRecord {
   DocumentReference? get user => _user;
   bool hasUser() => _user != null;
 
-  // "category" field.
-  DocumentReference? _category;
-  DocumentReference? get category => _category;
-  bool hasCategory() => _category != null;
-
   // "type" field.
   String? _type;
   String get type => _type ?? '';
@@ -51,14 +46,19 @@ class TransactionsRecord extends FirestoreRecord {
   DocumentReference? get bankAccount => _bankAccount;
   bool hasBankAccount() => _bankAccount != null;
 
+  // "category" field.
+  DocumentReference? _category;
+  DocumentReference? get category => _category;
+  bool hasCategory() => _category != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _amount = castToType<double>(snapshotData['amount']);
     _createdAt = snapshotData['created_at'] as DateTime?;
     _user = snapshotData['user'] as DocumentReference?;
-    _category = snapshotData['category'] as DocumentReference?;
     _type = snapshotData['type'] as String?;
     _bankAccount = snapshotData['bank_account'] as DocumentReference?;
+    _category = snapshotData['category'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -100,9 +100,9 @@ Map<String, dynamic> createTransactionsRecordData({
   double? amount,
   DateTime? createdAt,
   DocumentReference? user,
-  DocumentReference? category,
   String? type,
   DocumentReference? bankAccount,
+  DocumentReference? category,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -110,9 +110,9 @@ Map<String, dynamic> createTransactionsRecordData({
       'amount': amount,
       'created_at': createdAt,
       'user': user,
-      'category': category,
       'type': type,
       'bank_account': bankAccount,
+      'category': category,
     }.withoutNulls,
   );
 
@@ -129,9 +129,9 @@ class TransactionsRecordDocumentEquality
         e1?.amount == e2?.amount &&
         e1?.createdAt == e2?.createdAt &&
         e1?.user == e2?.user &&
-        e1?.category == e2?.category &&
         e1?.type == e2?.type &&
-        e1?.bankAccount == e2?.bankAccount;
+        e1?.bankAccount == e2?.bankAccount &&
+        e1?.category == e2?.category;
   }
 
   @override
@@ -140,9 +140,9 @@ class TransactionsRecordDocumentEquality
         e?.amount,
         e?.createdAt,
         e?.user,
-        e?.category,
         e?.type,
-        e?.bankAccount
+        e?.bankAccount,
+        e?.category
       ]);
 
   @override

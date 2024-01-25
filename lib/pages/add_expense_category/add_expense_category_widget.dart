@@ -12,9 +12,11 @@ class AddExpenseCategoryWidget extends StatefulWidget {
   const AddExpenseCategoryWidget({
     super.key,
     this.expenseCategory,
+    this.transactionCategory,
   });
 
   final ExpenseCategoryRecord? expenseCategory;
+  final TransactionCategoryRecord? transactionCategory;
 
   @override
   _AddExpenseCategoryWidgetState createState() =>
@@ -32,11 +34,11 @@ class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
     _model = createModel(context, () => AddExpenseCategoryModel());
 
     _model.categoryNameController ??=
-        TextEditingController(text: widget.expenseCategory?.categoryName);
+        TextEditingController(text: widget.transactionCategory?.categoryName);
     _model.categoryNameFocusNode ??= FocusNode();
 
-    _model.descriptionController ??= TextEditingController(
-        text: widget.expenseCategory?.categoryDescription);
+    _model.descriptionController ??=
+        TextEditingController(text: widget.transactionCategory?.categoryName);
     _model.descriptionFocusNode ??= FocusNode();
   }
 
@@ -236,9 +238,11 @@ class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
                             alignment: const AlignmentDirectional(0.0, 1.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                if ((widget.expenseCategory != null) == true) {
-                                  await widget.expenseCategory!.reference
-                                      .update(createExpenseCategoryRecordData(
+                                if ((widget.transactionCategory != null) ==
+                                    true) {
+                                  await widget.transactionCategory!.reference
+                                      .update(
+                                          createTransactionCategoryRecordData(
                                     categoryName:
                                         _model.categoryNameController.text,
                                     categoryDescription:
@@ -247,9 +251,9 @@ class _AddExpenseCategoryWidgetState extends State<AddExpenseCategoryWidget> {
                                     type: 'Debit',
                                   ));
                                 } else {
-                                  await ExpenseCategoryRecord.collection
+                                  await TransactionCategoryRecord.collection
                                       .doc()
-                                      .set(createExpenseCategoryRecordData(
+                                      .set(createTransactionCategoryRecordData(
                                         categoryName:
                                             _model.categoryNameController.text,
                                         categoryDescription:

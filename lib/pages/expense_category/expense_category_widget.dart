@@ -305,10 +305,10 @@ class _ExpenseCategoryWidgetState extends State<ExpenseCategoryWidget> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    StreamBuilder<List<ExpenseCategoryRecord>>(
-                      stream: queryExpenseCategoryRecord(
-                        queryBuilder: (expenseCategoryRecord) =>
-                            expenseCategoryRecord.where(
+                    StreamBuilder<List<TransactionCategoryRecord>>(
+                      stream: queryTransactionCategoryRecord(
+                        queryBuilder: (transactionCategoryRecord) =>
+                            transactionCategoryRecord.where(
                           'user',
                           isEqualTo: currentUserReference,
                         ),
@@ -328,16 +328,18 @@ class _ExpenseCategoryWidgetState extends State<ExpenseCategoryWidget> {
                             ),
                           );
                         }
-                        List<ExpenseCategoryRecord>
-                            listViewExpenseCategoryRecordList = snapshot.data!;
+                        List<TransactionCategoryRecord>
+                            listViewTransactionCategoryRecordList =
+                            snapshot.data!;
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
-                          itemCount: listViewExpenseCategoryRecordList.length,
+                          itemCount:
+                              listViewTransactionCategoryRecordList.length,
                           itemBuilder: (context, listViewIndex) {
-                            final listViewExpenseCategoryRecord =
-                                listViewExpenseCategoryRecordList[
+                            final listViewTransactionCategoryRecord =
+                                listViewTransactionCategoryRecordList[
                                     listViewIndex];
                             return Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -366,14 +368,14 @@ class _ExpenseCategoryWidgetState extends State<ExpenseCategoryWidget> {
                                       context.pushNamed(
                                         'AddExpenseCategory',
                                         queryParameters: {
-                                          'expenseCategory': serializeParam(
-                                            listViewExpenseCategoryRecord,
+                                          'transactionCategory': serializeParam(
+                                            listViewTransactionCategoryRecord,
                                             ParamType.Document,
                                           ),
                                         }.withoutNulls,
                                         extra: <String, dynamic>{
-                                          'expenseCategory':
-                                              listViewExpenseCategoryRecord,
+                                          'transactionCategory':
+                                              listViewTransactionCategoryRecord,
                                         },
                                       );
                                     },
@@ -398,7 +400,7 @@ class _ExpenseCategoryWidgetState extends State<ExpenseCategoryWidget> {
                                                 FFAppConstants.errorColor,
                                             icon: Icons.delete,
                                             onPressed: (_) async {
-                                              await listViewExpenseCategoryRecord
+                                              await listViewTransactionCategoryRecord
                                                   .reference
                                                   .delete();
                                             },
@@ -410,13 +412,13 @@ class _ExpenseCategoryWidgetState extends State<ExpenseCategoryWidget> {
                                           Icons.category_outlined,
                                         ),
                                         title: Text(
-                                          listViewExpenseCategoryRecord
+                                          listViewTransactionCategoryRecord
                                               .categoryName,
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge,
                                         ),
                                         subtitle: Text(
-                                          listViewExpenseCategoryRecord
+                                          listViewTransactionCategoryRecord
                                               .categoryDescription,
                                           style: FlutterFlowTheme.of(context)
                                               .labelMedium,

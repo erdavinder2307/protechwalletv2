@@ -10,6 +10,7 @@ import 'schema/expense_category_record.dart';
 import 'schema/expenses_record.dart';
 import 'schema/bank_accounts_record.dart';
 import 'schema/transactions_record.dart';
+import 'schema/transaction_category_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,6 +23,7 @@ export 'schema/expense_category_record.dart';
 export 'schema/expenses_record.dart';
 export 'schema/bank_accounts_record.dart';
 export 'schema/transactions_record.dart';
+export 'schema/transaction_category_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -203,6 +205,43 @@ Future<List<TransactionsRecord>> queryTransactionsRecordOnce({
     queryCollectionOnce(
       TransactionsRecord.collection,
       TransactionsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query TransactionCategoryRecords (as a Stream and as a Future).
+Future<int> queryTransactionCategoryRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      TransactionCategoryRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<TransactionCategoryRecord>> queryTransactionCategoryRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      TransactionCategoryRecord.collection,
+      TransactionCategoryRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<TransactionCategoryRecord>> queryTransactionCategoryRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      TransactionCategoryRecord.collection,
+      TransactionCategoryRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
