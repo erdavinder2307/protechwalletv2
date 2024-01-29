@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "635133701048",
+    "project_id": "protechwallet-c1d49",
+    "storage_bucket": "protechwallet-c1d49.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635133701048:android:63a8b594f832c4ed95fd4d",
+        "android_client_info": {
+          "package_name": "com.solidevelectrosoft.finwallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635133701048-gd9n7818kvck37sg8ih8o64ra8nlq5qh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.solidevelectrosoft.finwallet",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "635133701048-p8aje7ollns6k360nb6smcji4de1887o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Iyr2K5c4EtO-9-EM6gj79igUyXLPsfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "635133701048-p8aje7ollns6k360nb6smcji4de1887o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "635133701048-h5in8oc6gsahg1ocqftr872cvfq39s0h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.solidevelectrosoft.protechwallet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635133701048:android:a3e7e94fde6eaebc95fd4d",
+        "android_client_info": {
+          "package_name": "com.solidevelectrosoft.protechwallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635133701048-6madrakkbg3ghg7fsh2g400f348f2a7t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.solidevelectrosoft.protechwallet",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "635133701048-p8aje7ollns6k360nb6smcji4de1887o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Iyr2K5c4EtO-9-EM6gj79igUyXLPsfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "635133701048-p8aje7ollns6k360nb6smcji4de1887o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "635133701048-h5in8oc6gsahg1ocqftr872cvfq39s0h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.solidevelectrosoft.protechwallet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
