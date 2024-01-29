@@ -20,7 +20,7 @@ class EditTransactionWidget extends StatefulWidget {
   final TransactionsRecord? transaction;
 
   @override
-  _EditTransactionWidgetState createState() => _EditTransactionWidgetState();
+  State<EditTransactionWidget> createState() => _EditTransactionWidgetState();
 }
 
 class _EditTransactionWidgetState extends State<EditTransactionWidget> {

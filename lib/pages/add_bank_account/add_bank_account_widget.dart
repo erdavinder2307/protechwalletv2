@@ -17,7 +17,7 @@ class AddBankAccountWidget extends StatefulWidget {
   final BankAccountsRecord? bankAccount;
 
   @override
-  _AddBankAccountWidgetState createState() => _AddBankAccountWidgetState();
+  State<AddBankAccountWidget> createState() => _AddBankAccountWidgetState();
 }
 
 class _AddBankAccountWidgetState extends State<AddBankAccountWidget> {

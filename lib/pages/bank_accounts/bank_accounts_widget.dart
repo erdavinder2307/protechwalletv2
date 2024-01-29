@@ -13,7 +13,7 @@ class BankAccountsWidget extends StatefulWidget {
   const BankAccountsWidget({super.key});
 
   @override
-  _BankAccountsWidgetState createState() => _BankAccountsWidgetState();
+  State<BankAccountsWidget> createState() => _BankAccountsWidgetState();
 }
 
 class _BankAccountsWidgetState extends State<BankAccountsWidget> {

@@ -17,7 +17,7 @@ class DashboardWidget extends StatefulWidget {
   const DashboardWidget({super.key});
 
   @override
-  _DashboardWidgetState createState() => _DashboardWidgetState();
+  State<DashboardWidget> createState() => _DashboardWidgetState();
 }
 
 class _DashboardWidgetState extends State<DashboardWidget>
@@ -430,6 +430,15 @@ class _DashboardWidgetState extends State<DashboardWidget>
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.asset(
+                            'assets/images/protech_wallet_-2.png',
+                            width: 300.0,
+                            height: 360.0,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),

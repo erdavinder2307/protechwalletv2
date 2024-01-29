@@ -11,13 +11,13 @@ export 'add_income_category_model.dart';
 class AddIncomeCategoryWidget extends StatefulWidget {
   const AddIncomeCategoryWidget({
     super.key,
-    this.expenseCategory,
+    this.incomeCategory,
   });
 
-  final ExpenseCategoryRecord? expenseCategory;
+  final TransactionCategoryRecord? incomeCategory;
 
   @override
-  _AddIncomeCategoryWidgetState createState() =>
+  State<AddIncomeCategoryWidget> createState() =>
       _AddIncomeCategoryWidgetState();
 }
 
@@ -32,11 +32,11 @@ class _AddIncomeCategoryWidgetState extends State<AddIncomeCategoryWidget> {
     _model = createModel(context, () => AddIncomeCategoryModel());
 
     _model.categoryNameController ??=
-        TextEditingController(text: widget.expenseCategory?.categoryName);
+        TextEditingController(text: widget.incomeCategory?.categoryName);
     _model.categoryNameFocusNode ??= FocusNode();
 
-    _model.descriptionController ??= TextEditingController(
-        text: widget.expenseCategory?.categoryDescription);
+    _model.descriptionController ??=
+        TextEditingController(text: widget.incomeCategory?.categoryDescription);
     _model.descriptionFocusNode ??= FocusNode();
   }
 
@@ -236,9 +236,9 @@ class _AddIncomeCategoryWidgetState extends State<AddIncomeCategoryWidget> {
                             alignment: const AlignmentDirectional(0.0, 1.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                if ((widget.expenseCategory != null) == true) {
-                                  await widget.expenseCategory!.reference
-                                      .update(createExpenseCategoryRecordData(
+                                if ((widget.incomeCategory != null) == true) {
+                                  await widget.incomeCategory!.reference.update(
+                                      createTransactionCategoryRecordData(
                                     categoryName:
                                         _model.categoryNameController.text,
                                     categoryDescription:
@@ -247,9 +247,9 @@ class _AddIncomeCategoryWidgetState extends State<AddIncomeCategoryWidget> {
                                     type: 'Credit',
                                   ));
                                 } else {
-                                  await ExpenseCategoryRecord.collection
+                                  await TransactionCategoryRecord.collection
                                       .doc()
-                                      .set(createExpenseCategoryRecordData(
+                                      .set(createTransactionCategoryRecordData(
                                         categoryName:
                                             _model.categoryNameController.text,
                                         categoryDescription:

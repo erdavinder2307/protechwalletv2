@@ -13,7 +13,7 @@ class TransactionsWidget extends StatefulWidget {
   const TransactionsWidget({super.key});
 
   @override
-  _TransactionsWidgetState createState() => _TransactionsWidgetState();
+  State<TransactionsWidget> createState() => _TransactionsWidgetState();
 }
 
 class _TransactionsWidgetState extends State<TransactionsWidget> {
@@ -306,7 +306,14 @@ class _TransactionsWidgetState extends State<TransactionsWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     StreamBuilder<List<TransactionsRecord>>(
-                      stream: queryTransactionsRecord(),
+                      stream: queryTransactionsRecord(
+                        queryBuilder: (transactionsRecord) => transactionsRecord
+                            .where(
+                              'user',
+                              isEqualTo: currentUserReference,
+                            )
+                            .orderBy('name'),
+                      ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {

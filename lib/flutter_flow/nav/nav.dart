@@ -169,12 +169,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'AddIncomeCategory',
           path: '/addIncomeCategory',
           asyncParams: {
-            'expenseCategory': getDoc(
-                ['expense_category'], ExpenseCategoryRecord.fromSnapshot),
+            'incomeCategory': getDoc(['transaction_category'],
+                TransactionCategoryRecord.fromSnapshot),
           },
           builder: (context, params) => AddIncomeCategoryWidget(
-            expenseCategory:
-                params.getParam('expenseCategory', ParamType.Document),
+            incomeCategory:
+                params.getParam('incomeCategory', ParamType.Document),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),

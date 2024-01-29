@@ -16,7 +16,7 @@ class AuthenticationWidget extends StatefulWidget {
   const AuthenticationWidget({super.key});
 
   @override
-  _AuthenticationWidgetState createState() => _AuthenticationWidgetState();
+  State<AuthenticationWidget> createState() => _AuthenticationWidgetState();
 }
 
 class _AuthenticationWidgetState extends State<AuthenticationWidget>
@@ -162,11 +162,16 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget>
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 16.0),
-                child: Text(
-                  'Protech Wallet',
-                  style: FlutterFlowTheme.of(context).displaySmall,
+              Container(
+                width: 120.0,
+                height: 120.0,
+                clipBehavior: Clip.antiAlias,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: Image.asset(
+                  'assets/images/protech_wallet_-2.png',
+                  fit: BoxFit.cover,
                 ),
               ),
               Align(
@@ -175,7 +180,7 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget>
                   padding: const EdgeInsets.all(12.0),
                   child: Container(
                     width: double.infinity,
-                    height: MediaQuery.sizeOf(context).height * 0.8,
+                    height: MediaQuery.sizeOf(context).height * 0.72,
                     constraints: const BoxConstraints(
                       maxWidth: 530.0,
                     ),

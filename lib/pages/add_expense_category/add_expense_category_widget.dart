@@ -19,7 +19,7 @@ class AddExpenseCategoryWidget extends StatefulWidget {
   final TransactionCategoryRecord? transactionCategory;
 
   @override
-  _AddExpenseCategoryWidgetState createState() =>
+  State<AddExpenseCategoryWidget> createState() =>
       _AddExpenseCategoryWidgetState();
 }
 

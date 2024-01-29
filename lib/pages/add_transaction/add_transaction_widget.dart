@@ -21,7 +21,7 @@ class AddTransactionWidget extends StatefulWidget {
   final TransactionsRecord? transacation;
 
   @override
-  _AddTransactionWidgetState createState() => _AddTransactionWidgetState();
+  State<AddTransactionWidget> createState() => _AddTransactionWidgetState();
 }
 
 class _AddTransactionWidgetState extends State<AddTransactionWidget> {
@@ -151,65 +151,97 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                           children: [
                             Align(
                               alignment: const AlignmentDirectional(0.0, 0.0),
-                              child: Container(
-                                decoration: const BoxDecoration(),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 10.0, 10.0, 10.0),
-                                  child: FlutterFlowDropDown<String>(
-                                    controller: _model.bankValueController ??=
-                                        FormFieldController<String>(null),
-                                    options: _model.bankAccounts4 != null &&
-                                            (_model.bankAccounts4)!.isNotEmpty
-                                        ? _model.bankAccounts4!
-                                            .map((e) => e.bankName)
-                                            .toList()
-                                        : [],
-                                    onChanged: (val) async {
-                                      setState(() => _model.bankValue = val);
-                                      _model.bankAccounts =
-                                          await queryBankAccountsRecordOnce(
-                                        queryBuilder: (bankAccountsRecord) =>
-                                            bankAccountsRecord.where(
-                                          'bank_name',
-                                          isEqualTo: _model.bankValue,
-                                        ),
-                                        singleRecord: true,
-                                      ).then((s) => s.firstOrNull);
-
-                                      setState(() {});
-                                    },
-                                    height: 50.0,
-                                    searchHintTextStyle:
-                                        FlutterFlowTheme.of(context)
-                                            .labelMedium,
-                                    searchTextStyle:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                    textStyle:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                    hintText: 'Select Source',
-                                    searchHintText: 'Search..',
-                                    icon: Icon(
-                                      Icons.keyboard_arrow_down_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 24.0,
-                                    ),
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    elevation: 2.0,
-                                    borderColor:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    borderWidth: 2.0,
-                                    borderRadius: 8.0,
-                                    margin: const EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 4.0, 16.0, 4.0),
-                                    hidesUnderline: true,
-                                    isOverButton: true,
-                                    isSearchable: true,
-                                    isMultiSelect: false,
+                              child: StreamBuilder<List<BankAccountsRecord>>(
+                                stream: queryBankAccountsRecord(
+                                  queryBuilder: (bankAccountsRecord) =>
+                                      bankAccountsRecord.where(
+                                    'user',
+                                    isEqualTo: currentUserReference,
                                   ),
                                 ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<BankAccountsRecord>
+                                      containerBankAccountsRecordList =
+                                      snapshot.data!;
+                                  return Container(
+                                    decoration: const BoxDecoration(),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 10.0, 10.0, 10.0),
+                                      child: FlutterFlowDropDown<String>(
+                                        controller: _model
+                                                .bankValueController ??=
+                                            FormFieldController<String>(null),
+                                        options: containerBankAccountsRecordList
+                                            .map((e) => e.bankName)
+                                            .toList(),
+                                        onChanged: (val) async {
+                                          setState(
+                                              () => _model.bankValue = val);
+                                          _model.bankAccounts =
+                                              await queryBankAccountsRecordOnce(
+                                            queryBuilder:
+                                                (bankAccountsRecord) =>
+                                                    bankAccountsRecord.where(
+                                              'bank_name',
+                                              isEqualTo: _model.bankValue,
+                                            ),
+                                            singleRecord: true,
+                                          ).then((s) => s.firstOrNull);
+
+                                          setState(() {});
+                                        },
+                                        height: 50.0,
+                                        searchHintTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .labelMedium,
+                                        searchTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .bodyMedium,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                        hintText: 'Select Source',
+                                        searchHintText: 'Search..',
+                                        icon: Icon(
+                                          Icons.keyboard_arrow_down_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 24.0,
+                                        ),
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        elevation: 2.0,
+                                        borderColor:
+                                            FlutterFlowTheme.of(context)
+                                                .alternate,
+                                        borderWidth: 2.0,
+                                        borderRadius: 8.0,
+                                        margin: const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 4.0, 16.0, 4.0),
+                                        hidesUnderline: true,
+                                        isOverButton: true,
+                                        isSearchable: true,
+                                        isMultiSelect: false,
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                             Padding(
@@ -220,8 +252,26 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                     _model.transactionTypeValueController ??=
                                         FormFieldController<String>(null),
                                 options: const ['Credit', 'Debit'],
-                                onChanged: (val) => setState(
-                                    () => _model.transactionTypeValue = val),
+                                onChanged: (val) async {
+                                  setState(
+                                      () => _model.transactionTypeValue = val);
+                                  _model.transactionCategory2 =
+                                      await queryTransactionCategoryRecordOnce(
+                                    queryBuilder: (transactionCategoryRecord) =>
+                                        transactionCategoryRecord
+                                            .where(
+                                              'user',
+                                              isEqualTo: currentUserReference,
+                                            )
+                                            .where(
+                                              'type',
+                                              isEqualTo:
+                                                  _model.transactionTypeValue,
+                                            ),
+                                  );
+
+                                  setState(() {});
+                                },
                                 height: 50.0,
                                 searchHintTextStyle:
                                     FlutterFlowTheme.of(context).labelMedium,
@@ -268,7 +318,7 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                                 (_model.transactionCategory)!
                                                     .isNotEmpty) ==
                                             true
-                                        ? _model.transactionCategory!
+                                        ? _model.transactionCategory2!
                                             .map((e) => e.categoryName)
                                             .toList()
                                         : [],

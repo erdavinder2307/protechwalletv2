@@ -13,7 +13,7 @@ class IncomeCategoryWidget extends StatefulWidget {
   const IncomeCategoryWidget({super.key});
 
   @override
-  _IncomeCategoryWidgetState createState() => _IncomeCategoryWidgetState();
+  State<IncomeCategoryWidget> createState() => _IncomeCategoryWidgetState();
 }
 
 class _IncomeCategoryWidgetState extends State<IncomeCategoryWidget> {
@@ -64,7 +64,7 @@ class _IncomeCategoryWidgetState extends State<IncomeCategoryWidget> {
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () async {
-              context.pushNamed('AddExpenseCategory');
+              context.pushNamed('AddIncomeCategory');
             },
             child: Icon(
               Icons.add,
@@ -305,13 +305,18 @@ class _IncomeCategoryWidgetState extends State<IncomeCategoryWidget> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    StreamBuilder<List<ExpenseCategoryRecord>>(
-                      stream: queryExpenseCategoryRecord(
-                        queryBuilder: (expenseCategoryRecord) =>
-                            expenseCategoryRecord.where(
-                          'user',
-                          isEqualTo: currentUserReference,
-                        ),
+                    StreamBuilder<List<TransactionCategoryRecord>>(
+                      stream: queryTransactionCategoryRecord(
+                        queryBuilder: (transactionCategoryRecord) =>
+                            transactionCategoryRecord
+                                .where(
+                                  'user',
+                                  isEqualTo: currentUserReference,
+                                )
+                                .where(
+                                  'type',
+                                  isEqualTo: "Credit",
+                                ),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -328,16 +333,18 @@ class _IncomeCategoryWidgetState extends State<IncomeCategoryWidget> {
                             ),
                           );
                         }
-                        List<ExpenseCategoryRecord>
-                            listViewExpenseCategoryRecordList = snapshot.data!;
+                        List<TransactionCategoryRecord>
+                            listViewTransactionCategoryRecordList =
+                            snapshot.data!;
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
-                          itemCount: listViewExpenseCategoryRecordList.length,
+                          itemCount:
+                              listViewTransactionCategoryRecordList.length,
                           itemBuilder: (context, listViewIndex) {
-                            final listViewExpenseCategoryRecord =
-                                listViewExpenseCategoryRecordList[
+                            final listViewTransactionCategoryRecord =
+                                listViewTransactionCategoryRecordList[
                                     listViewIndex];
                             return Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -366,14 +373,14 @@ class _IncomeCategoryWidgetState extends State<IncomeCategoryWidget> {
                                       context.pushNamed(
                                         'AddIncomeCategory',
                                         queryParameters: {
-                                          'expenseCategory': serializeParam(
-                                            listViewExpenseCategoryRecord,
+                                          'incomeCategory': serializeParam(
+                                            listViewTransactionCategoryRecord,
                                             ParamType.Document,
                                           ),
                                         }.withoutNulls,
                                         extra: <String, dynamic>{
-                                          'expenseCategory':
-                                              listViewExpenseCategoryRecord,
+                                          'incomeCategory':
+                                              listViewTransactionCategoryRecord,
                                         },
                                       );
                                     },
@@ -398,7 +405,7 @@ class _IncomeCategoryWidgetState extends State<IncomeCategoryWidget> {
                                                 FFAppConstants.errorColor,
                                             icon: Icons.delete,
                                             onPressed: (_) async {
-                                              await listViewExpenseCategoryRecord
+                                              await listViewTransactionCategoryRecord
                                                   .reference
                                                   .delete();
                                             },
@@ -410,13 +417,13 @@ class _IncomeCategoryWidgetState extends State<IncomeCategoryWidget> {
                                           Icons.category_outlined,
                                         ),
                                         title: Text(
-                                          listViewExpenseCategoryRecord
+                                          listViewTransactionCategoryRecord
                                               .categoryName,
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge,
                                         ),
                                         subtitle: Text(
-                                          listViewExpenseCategoryRecord
+                                          listViewTransactionCategoryRecord
                                               .categoryDescription,
                                           style: FlutterFlowTheme.of(context)
                                               .labelMedium,

@@ -20,6 +20,8 @@ class AddTransactionModel extends FlutterFlowModel<AddTransactionWidget> {
   // State field(s) for TransactionType widget.
   String? transactionTypeValue;
   FormFieldController<String>? transactionTypeValueController;
+  // Stores action output result for [Firestore Query - Query a collection] action in TransactionType widget.
+  List<TransactionCategoryRecord>? transactionCategory2;
   // State field(s) for Category widget.
   String? categoryValue;
   FormFieldController<String>? categoryValueController;

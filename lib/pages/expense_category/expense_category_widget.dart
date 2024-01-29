@@ -13,7 +13,7 @@ class ExpenseCategoryWidget extends StatefulWidget {
   const ExpenseCategoryWidget({super.key});
 
   @override
-  _ExpenseCategoryWidgetState createState() => _ExpenseCategoryWidgetState();
+  State<ExpenseCategoryWidget> createState() => _ExpenseCategoryWidgetState();
 }
 
 class _ExpenseCategoryWidgetState extends State<ExpenseCategoryWidget> {
@@ -308,10 +308,15 @@ class _ExpenseCategoryWidgetState extends State<ExpenseCategoryWidget> {
                     StreamBuilder<List<TransactionCategoryRecord>>(
                       stream: queryTransactionCategoryRecord(
                         queryBuilder: (transactionCategoryRecord) =>
-                            transactionCategoryRecord.where(
-                          'user',
-                          isEqualTo: currentUserReference,
-                        ),
+                            transactionCategoryRecord
+                                .where(
+                                  'user',
+                                  isEqualTo: currentUserReference,
+                                )
+                                .where(
+                                  'type',
+                                  isEqualTo: "Debit",
+                                ),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
