@@ -20,7 +20,7 @@ class EditTransactionModel extends FlutterFlowModel<EditTransactionWidget> {
   String? categoryValue;
   FormFieldController<String>? categoryValueController;
   // Stores action output result for [Firestore Query - Query a collection] action in Category widget.
-  ExpenseCategoryRecord? expenseCategory;
+  TransactionCategoryRecord? expenseCategory;
   // State field(s) for Amount widget.
   FocusNode? amountFocusNode;
   TextEditingController? amountController;

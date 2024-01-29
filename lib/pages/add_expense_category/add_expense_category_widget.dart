@@ -11,11 +11,9 @@ export 'add_expense_category_model.dart';
 class AddExpenseCategoryWidget extends StatefulWidget {
   const AddExpenseCategoryWidget({
     super.key,
-    this.expenseCategory,
     this.transactionCategory,
   });
 
-  final ExpenseCategoryRecord? expenseCategory;
   final TransactionCategoryRecord? transactionCategory;
 
   @override

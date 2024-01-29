@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'add_transaction_model.dart';
 export 'add_transaction_model.dart';
@@ -33,23 +32,6 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AddTransactionModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.bankAccounts4 = await queryBankAccountsRecordOnce(
-        queryBuilder: (bankAccountsRecord) => bankAccountsRecord.where(
-          'user',
-          isEqualTo: currentUserReference,
-        ),
-      );
-      _model.transactionCategory = await queryTransactionCategoryRecordOnce(
-        queryBuilder: (transactionCategoryRecord) =>
-            transactionCategoryRecord.where(
-          'user',
-          isEqualTo: currentUserReference,
-        ),
-      );
-    });
 
     _model.amountController ??=
         TextEditingController(text: widget.transacation?.amount.toString());
@@ -304,71 +286,100 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                             ),
                             Align(
                               alignment: const AlignmentDirectional(0.0, 0.0),
-                              child: Container(
-                                decoration: const BoxDecoration(),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 10.0, 10.0, 10.0),
-                                  child: FlutterFlowDropDown<String>(
-                                    controller:
-                                        _model.categoryValueController ??=
-                                            FormFieldController<String>(null),
-                                    options: (_model.transactionCategory !=
-                                                    null &&
-                                                (_model.transactionCategory)!
-                                                    .isNotEmpty) ==
-                                            true
-                                        ? _model.transactionCategory2!
-                                            .map((e) => e.categoryName)
-                                            .toList()
-                                        : [],
-                                    onChanged: (val) async {
-                                      setState(
-                                          () => _model.categoryValue = val);
-                                      _model.expenseCategory =
-                                          await queryTransactionCategoryRecordOnce(
-                                        queryBuilder:
-                                            (transactionCategoryRecord) =>
-                                                transactionCategoryRecord.where(
-                                          'category_name',
-                                          isEqualTo: _model.categoryValue,
-                                        ),
-                                        singleRecord: true,
-                                      ).then((s) => s.firstOrNull);
-
-                                      setState(() {});
-                                    },
-                                    height: 50.0,
-                                    searchHintTextStyle:
-                                        FlutterFlowTheme.of(context)
-                                            .labelMedium,
-                                    searchTextStyle:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                    textStyle:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                    hintText: 'Select Category',
-                                    searchHintText: 'Search..',
-                                    icon: Icon(
-                                      Icons.keyboard_arrow_down_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 24.0,
-                                    ),
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    elevation: 2.0,
-                                    borderColor:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    borderWidth: 2.0,
-                                    borderRadius: 8.0,
-                                    margin: const EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 4.0, 16.0, 4.0),
-                                    hidesUnderline: true,
-                                    isOverButton: true,
-                                    isSearchable: true,
-                                    isMultiSelect: false,
+                              child: StreamBuilder<
+                                  List<TransactionCategoryRecord>>(
+                                stream: queryTransactionCategoryRecord(
+                                  queryBuilder: (transactionCategoryRecord) =>
+                                      transactionCategoryRecord.where(
+                                    'user',
+                                    isEqualTo: currentUserReference,
                                   ),
                                 ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<TransactionCategoryRecord>
+                                      containerTransactionCategoryRecordList =
+                                      snapshot.data!;
+                                  return Container(
+                                    decoration: const BoxDecoration(),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 10.0, 10.0, 10.0),
+                                      child: FlutterFlowDropDown<String>(
+                                        controller: _model
+                                                .categoryValueController ??=
+                                            FormFieldController<String>(null),
+                                        options:
+                                            containerTransactionCategoryRecordList
+                                                .map((e) => e.categoryName)
+                                                .toList(),
+                                        onChanged: (val) async {
+                                          setState(
+                                              () => _model.categoryValue = val);
+                                          _model.expenseCategory =
+                                              await queryTransactionCategoryRecordOnce(
+                                            queryBuilder:
+                                                (transactionCategoryRecord) =>
+                                                    transactionCategoryRecord
+                                                        .where(
+                                              'category_name',
+                                              isEqualTo: _model.categoryValue,
+                                            ),
+                                            singleRecord: true,
+                                          ).then((s) => s.firstOrNull);
+
+                                          setState(() {});
+                                        },
+                                        height: 50.0,
+                                        searchHintTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .labelMedium,
+                                        searchTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .bodyMedium,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                        hintText: 'Select Category',
+                                        searchHintText: 'Search..',
+                                        icon: Icon(
+                                          Icons.keyboard_arrow_down_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 24.0,
+                                        ),
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        elevation: 2.0,
+                                        borderColor:
+                                            FlutterFlowTheme.of(context)
+                                                .alternate,
+                                        borderWidth: 2.0,
+                                        borderRadius: 8.0,
+                                        margin: const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 4.0, 16.0, 4.0),
+                                        hidesUnderline: true,
+                                        isOverButton: true,
+                                        isSearchable: true,
+                                        isMultiSelect: false,
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                             Padding(

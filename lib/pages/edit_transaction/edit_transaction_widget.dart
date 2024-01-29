@@ -161,20 +161,8 @@ class _EditTransactionWidgetState extends State<EditTransactionWidget> {
                                       10.0, 10.0, 10.0, 10.0),
                                   child: FlutterFlowDropDown<String>(
                                     controller: _model.bankValueController ??=
-                                        FormFieldController<String>(
-                                      _model.bankValue ??=
-                                          containerBankAccountsRecordList
-                                              .where((e) =>
-                                                  e.reference.id ==
-                                                  widget.transaction
-                                                      ?.bankAccount?.id)
-                                              .toList()
-                                              .first
-                                              .bankName,
-                                    ),
-                                    options: containerBankAccountsRecordList
-                                        .map((e) => e.bankName)
-                                        .toList(),
+                                        FormFieldController<String>(null),
+                                    options: const ['Option 1'],
                                     onChanged: (val) async {
                                       setState(() => _model.bankValue = val);
                                       _model.bankAccount =
@@ -304,33 +292,17 @@ class _EditTransactionWidgetState extends State<EditTransactionWidget> {
                                     child: FlutterFlowDropDown<String>(
                                       controller:
                                           _model.categoryValueController ??=
-                                              FormFieldController<String>(
-                                        _model.categoryValue ??=
-                                            containerTransactionCategoryRecordList
-                                                .where((e) =>
-                                                    e.reference.id ==
-                                                    widget.transaction?.category
-                                                        ?.id)
-                                                .toList()
-                                                .first
-                                                .categoryName,
-                                      ),
-                                      options:
-                                          containerTransactionCategoryRecordList
-                                              .where((e) =>
-                                                  e.type ==
-                                                  widget.transaction?.type)
-                                              .toList()
-                                              .map((e) => e.categoryName)
-                                              .toList(),
+                                              FormFieldController<String>(null),
+                                      options: const ['Option 1'],
                                       onChanged: (val) async {
                                         setState(
                                             () => _model.categoryValue = val);
                                         _model.expenseCategory =
-                                            await queryExpenseCategoryRecordOnce(
+                                            await queryTransactionCategoryRecordOnce(
                                           queryBuilder:
-                                              (expenseCategoryRecord) =>
-                                                  expenseCategoryRecord.where(
+                                              (transactionCategoryRecord) =>
+                                                  transactionCategoryRecord
+                                                      .where(
                                             'category_name',
                                             isEqualTo: _model.categoryValue,
                                           ),

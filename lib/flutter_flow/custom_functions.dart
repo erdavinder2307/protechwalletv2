@@ -12,12 +12,40 @@ import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
-double? getTotalExpense(List<ExpensesRecord>? expenses) {
+double? getTotalExpense(List<TransactionsRecord>? transactions) {
   double totalAmount = 0.0;
-  if (expenses != null) {
-    for (ExpensesRecord expense in expenses) {
-      totalAmount += expense.amount;
+  if (transactions != null) {
+    for (TransactionsRecord transaction in transactions) {
+      if (transaction.type == "Debit") totalAmount += transaction.amount;
     }
   }
+  return totalAmount;
+}
+
+double? getTotalIncome(List<TransactionsRecord>? transactions) {
+  double totalAmount = 0.0;
+  if (transactions != null) {
+    for (TransactionsRecord transaction in transactions) {
+      if (transaction.type == "Credit") totalAmount += transaction.amount;
+    }
+  }
+  return totalAmount;
+}
+
+double? getNetWorth(List<TransactionsRecord>? transactions) {
+  double totalAmount = 0.0;
+  double totalExpense = getTotalExpense(transactions) as double;
+  double totalIncome = getTotalIncome(transactions) as double;
+  totalAmount = totalIncome - totalExpense;
+
+  return totalAmount;
+}
+
+double? getPercentIncrease(List<TransactionsRecord>? transactions) {
+  double totalAmount = 0.0;
+  double totalExpense = getTotalExpense(transactions) as double;
+  double totalIncome = getTotalIncome(transactions) as double;
+  totalAmount = totalIncome / (totalIncome + totalExpense);
+
   return totalAmount;
 }

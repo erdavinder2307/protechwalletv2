@@ -143,9 +143,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
       );
     }
 
-    return StreamBuilder<List<ExpensesRecord>>(
-      stream: queryExpensesRecord(
-        queryBuilder: (expensesRecord) => expensesRecord.where(
+    return StreamBuilder<List<TransactionsRecord>>(
+      stream: queryTransactionsRecord(
+        queryBuilder: (transactionsRecord) => transactionsRecord.where(
           'user',
           isEqualTo: currentUserReference,
         ),
@@ -168,7 +168,8 @@ class _DashboardWidgetState extends State<DashboardWidget>
             ),
           );
         }
-        List<ExpensesRecord> dashboardExpensesRecordList = snapshot.data!;
+        List<TransactionsRecord> dashboardTransactionsRecordList =
+            snapshot.data!;
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
               ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -430,15 +431,6 @@ class _DashboardWidgetState extends State<DashboardWidget>
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.asset(
-                            'assets/images/protech_wallet_-2.png',
-                            width: 300.0,
-                            height: 360.0,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
@@ -501,7 +493,11 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                               const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 0.0, 0.0),
                                           child: Text(
-                                            '260000',
+                                            functions
+                                                .getNetWorth(
+                                                    dashboardTransactionsRecordList
+                                                        .toList())
+                                                .toString(),
                                             style: FlutterFlowTheme.of(context)
                                                 .headlineLarge
                                                 .override(
@@ -517,7 +513,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                         'columnOnPageLoadAnimation']!),
                                   ),
                                   CircularPercentIndicator(
-                                    percent: 0.55,
+                                    percent: functions.getPercentIncrease(
+                                        dashboardTransactionsRecordList
+                                            .toList())!,
                                     radius: 50.0,
                                     lineWidth: 8.0,
                                     animation: true,
@@ -620,7 +618,11 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                     .fromSTEB(
                                                         0.0, 4.0, 4.0, 0.0),
                                                 child: Text(
-                                                  '3000',
+                                                  functions
+                                                      .getTotalIncome(
+                                                          dashboardTransactionsRecordList
+                                                              .toList())
+                                                      .toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .displaySmall
@@ -751,7 +753,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                 child: Text(
                                                   functions
                                                       .getTotalExpense(
-                                                          dashboardExpensesRecordList
+                                                          dashboardTransactionsRecordList
                                                               .toList())
                                                       .toString(),
                                                   style: FlutterFlowTheme.of(
