@@ -7,6 +7,8 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
 
   final unfocusNode = FocusNode();
 
+  String? dateValue;
+
   /// Initialization and disposal methods.
 
   @override

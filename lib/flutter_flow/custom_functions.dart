@@ -12,12 +12,34 @@ import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
-double? getTotalExpense(List<ExpensesRecord>? expenses) {
+double? getTotalExpense(List<TransactionsRecord>? expenses) {
   double totalAmount = 0.0;
   if (expenses != null) {
-    for (ExpensesRecord expense in expenses) {
+    for (TransactionsRecord expense
+        in expenses.where((element) => element.type == "Debit")) {
       totalAmount += expense.amount;
     }
+  }
+  return totalAmount;
+}
+
+double? getTotalIncome(List<TransactionsRecord>? incomes) {
+  double totalAmount = 0.0;
+  if (incomes != null) {
+    for (TransactionsRecord incomes
+        in incomes.where((element) => element.type == "Credit")) {
+      totalAmount += incomes.amount;
+    }
+  }
+  return totalAmount;
+}
+
+double? getNetWorth(List<TransactionsRecord>? transactions) {
+  double totalAmount = 0.0;
+  if (transactions != null) {
+    double income = getTotalIncome(transactions) ?? 0.0;
+    double expenses = getTotalExpense(transactions) ?? 0.0;
+    totalAmount = income - expenses;
   }
   return totalAmount;
 }

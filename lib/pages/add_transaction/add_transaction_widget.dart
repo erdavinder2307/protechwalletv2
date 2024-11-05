@@ -182,8 +182,9 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                   return Container(
                                     decoration: const BoxDecoration(),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 10.0, 10.0, 10.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10.0, 10.0, 10.0, 10.0),
                                       child: FlutterFlowDropDown<String>(
                                         controller: _model
                                                 .bankValueController ??=
@@ -232,8 +233,8 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                                 .alternate,
                                         borderWidth: 2.0,
                                         borderRadius: 8.0,
-                                        margin: const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 4.0, 16.0, 4.0),
+                                        margin: const EdgeInsetsDirectional
+                                            .fromSTEB(16.0, 4.0, 16.0, 4.0),
                                         hidesUnderline: true,
                                         isOverButton: true,
                                         isSearchable: true,
@@ -313,9 +314,9 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                     controller:
                                         _model.categoryValueController ??=
                                             FormFieldController<String>(null),
-                                    options: (_model.transactionCategory !=
+                                    options: (_model.transactionCategory2 !=
                                                     null &&
-                                                (_model.transactionCategory)!
+                                                (_model.transactionCategory2)!
                                                     .isNotEmpty) ==
                                             true
                                         ? _model.transactionCategory2!
@@ -361,8 +362,9 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                         FlutterFlowTheme.of(context).alternate,
                                     borderWidth: 2.0,
                                     borderRadius: 8.0,
-                                    margin: const EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 4.0, 16.0, 4.0),
+                                    margin:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 4.0, 16.0, 4.0),
                                     hidesUnderline: true,
                                     isOverButton: true,
                                     isSearchable: true,
@@ -522,8 +524,9 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                 height: 40.0,
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 24.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
+                                iconPadding:
+                                    const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
                                 color: FFAppConstants.secondaryColor,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
