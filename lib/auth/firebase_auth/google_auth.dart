@@ -11,10 +11,11 @@ Future<UserCredential?> googleSignInFunc() async {
   }
 
   await signOutWithGoogle().catchError((_) => null);
-  final auth = await (await _googleSignIn.signIn())?.authentication;
-  if (auth == null) {
+  final googleUser = await _googleSignIn.signIn();
+  if (googleUser == null) {
     return null;
   }
+  final auth = await googleUser.authentication;
   final credential = GoogleAuthProvider.credential(
       idToken: auth.idToken, accessToken: auth.accessToken);
   return FirebaseAuth.instance.signInWithCredential(credential);
